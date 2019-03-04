@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
+    <ExpandableListView
+        android:id="@+id/expanded_menu"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:layout_gravity="start"
+        android:background="#111"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
