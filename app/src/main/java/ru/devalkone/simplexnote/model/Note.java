@@ -1,6 +1,8 @@
 package ru.devalkone.simplexnote.model;
 
 
+import java.util.Calendar;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -16,10 +18,9 @@ public class Note {
     public Note() {
     }
 
-    public Note(long id, String text, String createTime) {
-        this.id = id;
+    public Note(String text) {
         this.text = text;
-        this.createTime = createTime;
+        this.createTime = Calendar.getInstance().getTime().toString();
     }
 
     public long getId() {
