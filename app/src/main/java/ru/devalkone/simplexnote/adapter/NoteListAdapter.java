@@ -52,4 +52,6 @@ public class NoteListAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.note_text)).setText(note.getText());
         return view;
     }
+
+
 }

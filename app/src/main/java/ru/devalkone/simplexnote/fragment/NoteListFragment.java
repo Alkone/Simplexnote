@@ -26,4 +26,6 @@ public class NoteListFragment extends ListFragment {
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
+
+
 }
