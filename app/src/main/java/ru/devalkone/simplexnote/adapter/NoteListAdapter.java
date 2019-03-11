@@ -48,17 +48,7 @@ public class NoteListAdapter extends BaseAdapter {
 
         Note note = (Note) getItem(position);
         // заполняем View в пункте списка данными
-        ((TextView) view.findViewById(R.id.note_id)).setText(Long.toString(note.getId()));
-        ((TextView) view.findViewById(R.id.note_createdate)).setText(note.getCreateTime());
         ((TextView) view.findViewById(R.id.note_text)).setText(note.getText());
-
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                ((TextView) v.findViewById(R.id.note_id)).setText("Looooong taap");
-                return false;
-            }
-        });
         return view;
     }
 
