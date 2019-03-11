@@ -2,6 +2,7 @@ package ru.devalkone.simplexnote.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import ru.devalkone.simplexnote.R;
+import ru.devalkone.simplexnote.model.Note;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,7 +26,9 @@ public class AddNoteActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText noteText = findViewById(R.id.edit_text);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("data", noteText.getText().toString());
+
+                Note note = new Note(noteText.getText().toString());
+                intent.putExtra("NEW_NOTE", note);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }

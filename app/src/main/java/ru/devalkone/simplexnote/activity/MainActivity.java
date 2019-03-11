@@ -61,12 +61,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(data != null) {
-            addNewNote(data.getStringExtra("data"));
+            database.noteDao().insert((Note) data.getSerializableExtra("NEW_NOTE"));
         }
-    }
-
-    public void addNewNote(String data){
-        database.noteDao().insert(new Note(data));
     }
 
     public static MainActivity getInstance() {

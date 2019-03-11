@@ -40,7 +40,7 @@ public class NoteListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, final ViewGroup parent) {
         View view = convertView;
         if(view == null){
             view = inflater.inflate(R.layout.fragment_note_list_item, parent, false);
@@ -49,7 +49,16 @@ public class NoteListAdapter extends BaseAdapter {
         Note note = (Note) getItem(position);
         // заполняем View в пункте списка данными
         ((TextView) view.findViewById(R.id.note_id)).setText(Long.toString(note.getId()));
+        ((TextView) view.findViewById(R.id.note_createdate)).setText(note.getCreateTime());
         ((TextView) view.findViewById(R.id.note_text)).setText(note.getText());
+
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ((TextView) v.findViewById(R.id.note_id)).setText("Looooong taap");
+                return false;
+            }
+        });
         return view;
     }
 

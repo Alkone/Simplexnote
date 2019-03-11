@@ -1,13 +1,14 @@
 package ru.devalkone.simplexnote.model;
 
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Note {
+public class Note implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
