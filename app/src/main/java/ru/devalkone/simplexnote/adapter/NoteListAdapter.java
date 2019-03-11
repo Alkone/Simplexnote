@@ -52,13 +52,6 @@ public class NoteListAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.note_createdate)).setText(note.getCreateTime());
         ((TextView) view.findViewById(R.id.note_text)).setText(note.getText());
 
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                ((TextView) v.findViewById(R.id.note_id)).setText("Looooong taap");
-                return false;
-            }
-        });
         return view;
     }
 
