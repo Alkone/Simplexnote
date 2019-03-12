@@ -24,7 +24,9 @@ import ru.devalkone.simplexnote.model.Note;
 
 public class NoteListFragment extends ListFragment {
 
+
     public static final int CTX_REMOVE = 1;
+    public static final int CTX_EDIT = 2;
 
     private List<Note> mNoteList;
     private NoteDao mNoteDao;
@@ -49,15 +51,14 @@ public class NoteListFragment extends ListFragment {
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(view.getContext(), ChangeNoteActivity.class);
-                intent.putExtra(ChangeNoteActivity.EXTRA_NOTE, mNoteList.get(position));
-                startActivity(intent);
+
             }
         });
     }
 
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        menu.add(Menu.NONE, CTX_EDIT, Menu.NONE, "Редактировать");
         menu.add(Menu.NONE, CTX_REMOVE, Menu.NONE, "Удалить");
         super.onCreateContextMenu(menu, v, menuInfo);
 
@@ -66,15 +67,22 @@ public class NoteListFragment extends ListFragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case CTX_REMOVE:
-                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            case CTX_REMOVE: {
                 //Удаляем из бд
                 mNoteDao.delete(mNoteList.get(info.position));
                 //Обновляем данные и оповещаем адаптер об изменениях
                 updateList();
                 mAdapter.notifyDataSetChanged();
+
+            }
+            case CTX_EDIT: {
+                Intent intent = new Intent(getContext(), ChangeNoteActivity.class);
+                intent.putExtra(ChangeNoteActivity.EXTRA_NOTE, mNoteList.get(info.position));
+                startActivity(intent);
                 return true;
+            }
         }
         return super.onContextItemSelected(item);
     }
