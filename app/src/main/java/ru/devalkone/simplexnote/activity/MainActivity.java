@@ -35,15 +35,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AddNoteActivity.class);
-                startActivityForResult(intent, 1);
-            }
-        });
-        fab.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                finish();
-                return false;
+                Intent intent = new Intent(view.getContext(), ChangeNoteActivity.class);
+                startActivity(intent);
             }
         });
     }

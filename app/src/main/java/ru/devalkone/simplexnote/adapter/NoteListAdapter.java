@@ -48,10 +48,7 @@ public class NoteListAdapter extends BaseAdapter {
 
         Note note = (Note) getItem(position);
         // заполняем View в пункте списка данными
-        ((TextView) view.findViewById(R.id.note_id)).setText(Long.toString(note.getId()));
-        ((TextView) view.findViewById(R.id.note_createdate)).setText(note.getCreateTime());
         ((TextView) view.findViewById(R.id.note_text)).setText(note.getText());
-
         return view;
     }
 
