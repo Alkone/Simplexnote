@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 import ru.devalkone.simplexnote.R;
 import ru.devalkone.simplexnote.dao.AppDatabase;
-import ru.devalkone.simplexnote.fragment.NoteListFragment;
+import ru.devalkone.simplexnote.fragment.NoteRecyclerFragment;
 import ru.devalkone.simplexnote.model.Note;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Fragment fragment = new NoteListFragment();
+        Fragment fragment = new NoteRecyclerFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_frame, fragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);

@@ -43,7 +43,7 @@ public class NoteListAdapter extends BaseAdapter {
     public View getView(int position, final View convertView, final ViewGroup parent) {
         View view = convertView;
         if(view == null){
-            view = inflater.inflate(R.layout.fragment_note_list_item, parent, false);
+            view = inflater.inflate(R.layout.note_item_list_view, parent, false);
         }
 
         Note note = (Note) getItem(position);

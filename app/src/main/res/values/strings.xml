@@ -6,6 +6,7 @@
     <string name="button_add">Add</string>
     <string name="button_cancel">Cancel</string>
 
-    <string name="edit_text_welcome">Put your text here ...</string>
+    <string name="edit_text_welcome">Put your text here</string>
+
 
 </resources>
