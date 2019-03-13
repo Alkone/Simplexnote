@@ -65,7 +65,7 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
         }
 
         public void bind(Note note) {
-            idTextView.setText(Long.toString(note.getId()));
+            idTextView.setText(Long.toString(note.getId()) + "#");
             dateTextView.setText(getFormattedDate(note.getCreateTime()));
             textTextView.setText(note.getText());
         }
