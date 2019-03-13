@@ -69,19 +69,18 @@ public class NoteListFragment extends ListFragment {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
-            case CTX_REMOVE: {
+            case CTX_REMOVE:
                 //Удаляем из бд
                 mNoteDao.delete(mNoteList.get(info.position));
                 //Обновляем данные и оповещаем адаптер об изменениях
                 updateList();
                 mAdapter.notifyDataSetChanged();
-
-            }
+                break;
             case CTX_EDIT: {
                 Intent intent = new Intent(getContext(), ChangeNoteActivity.class);
                 intent.putExtra(ChangeNoteActivity.EXTRA_NOTE, mNoteList.get(info.position));
                 startActivity(intent);
-                return true;
+                break;
             }
         }
         return super.onContextItemSelected(item);
