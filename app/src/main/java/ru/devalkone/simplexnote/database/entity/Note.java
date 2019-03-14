@@ -1,4 +1,4 @@
-package ru.devalkone.simplexnote.model;
+package ru.devalkone.simplexnote.database.entity;
 
 
 import java.io.Serializable;

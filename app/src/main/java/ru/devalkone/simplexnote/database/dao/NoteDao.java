@@ -1,4 +1,4 @@
-package ru.devalkone.simplexnote.dao;
+package ru.devalkone.simplexnote.database.dao;
 
 
 import java.util.List;
@@ -8,23 +8,23 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-import ru.devalkone.simplexnote.model.Note;
+import ru.devalkone.simplexnote.database.entity.Note;
 
 @Dao
 public interface NoteDao {
 
     @Query("SELECT * FROM note")
-    List<Note> getAll();
+    List<Note> getNoteList();
 
     @Query("SELECT * FROM note WHERE id = :id")
-    Note getById(long id);
+    Note getNoteById(long id);
 
     @Insert
-    void insert(Note note);
+    void insertNote(Note note);
 
     @Update
-    void update(Note note);
+    void updateNote(Note note);
 
     @Delete
-    void delete(Note note);
+    void removeNote(Note note);
 }

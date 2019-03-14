@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustPan">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".mvp.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ChangeNoteActivity"
+            android:name=".mvp.edit.EditActivity"
             android:windowSoftInputMode="adjustResize"></activity>
     </application>
 

@@ -1,4 +1,4 @@
-package ru.devalkone.simplexnote.adapter;
+package ru.devalkone.simplexnote.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,7 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.devalkone.simplexnote.R;
-import ru.devalkone.simplexnote.model.Note;
+import ru.devalkone.simplexnote.database.entity.Note;
 
 public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapter.NoteViewHolder> {
 
