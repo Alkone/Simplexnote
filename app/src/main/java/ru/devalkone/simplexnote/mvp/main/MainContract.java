@@ -24,5 +24,7 @@ public interface MainContract {
         void onDestroy();
 
         void onFabWasClicked();
+
+        void onRecyclerItemClicked(Note note);
     }
 }

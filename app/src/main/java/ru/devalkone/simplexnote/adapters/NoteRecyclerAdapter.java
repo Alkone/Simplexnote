@@ -19,33 +19,41 @@ import ru.devalkone.simplexnote.R;
 import ru.devalkone.simplexnote.database.entity.Note;
 
 public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapter.NoteViewHolder> {
+    public interface OnNoteClickListener {
+        void onNoteClick(Note note);
+    }
 
-    private List<Note> noteList = new ArrayList<>();
+    private OnNoteClickListener mOnNoteClickListener;
+    private List<Note> mNoteList = new ArrayList<>();
+
+    public NoteRecyclerAdapter(OnNoteClickListener mOnNoteClickListener) {
+        this.mOnNoteClickListener = mOnNoteClickListener;
+    }
 
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item_recycler_view, parent, false);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item_recycler_view, parent, false);
         return new NoteViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        holder.bind(noteList.get(position));
+        holder.bind(mNoteList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return noteList.size();
+        return mNoteList.size();
     }
 
     public void setItems(Collection<Note> notes) {
-        noteList.addAll(notes);
+        mNoteList.addAll(notes);
         notifyDataSetChanged();
     }
 
     public void clearItems() {
-        noteList.clear();
+        mNoteList.clear();
         notifyDataSetChanged();
     }
 
@@ -62,11 +70,23 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
             idTextView = itemView.findViewById(R.id.note_item_id);
             dateTextView = itemView.findViewById(R.id.note_item_date);
             textTextView = itemView.findViewById(R.id.note_item_text);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Note note = mNoteList.get(getLayoutPosition());
+                    mOnNoteClickListener.onNoteClick(note);
+                }
+            });
         }
 
         public void bind(Note note) {
             idTextView.setText(Long.toString(note.getId()) + "#");
-            dateTextView.setText(getFormattedDate(note.getCreateTime()));
+
+            if (note.getCreateTime() != null) {
+                dateTextView.setText(getFormattedDate(note.getCreateTime()));
+            }
+
             textTextView.setText(note.getText());
         }
 

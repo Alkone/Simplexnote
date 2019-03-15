@@ -46,16 +46,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         mRecyclerView = findViewById(R.id.notes_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerAdapter = new NoteRecyclerAdapter();
+        mRecyclerAdapter = new NoteRecyclerAdapter(new NoteRecyclerAdapter.OnNoteClickListener() {
+            @Override
+            public void onNoteClick(Note note) {
+                mPresenter.onRecyclerItemClicked(note);
+            }
+        });
         mRecyclerView.setAdapter(mRecyclerAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL)); // add separator
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         mPresenter = new MainPresenter(AppDatabase.getDatabaseInstance(getApplicationContext()).noteDao()); //
         mPresenter.attachView(this);
-        mPresenter.viewIsReady();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.viewIsReady();
+    }
 
     @Override
     protected void onDestroy() {
@@ -63,18 +72,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mPresenter.onDestroy();
     }
 
-
     @Override
     public void showEditScreen(Note note) {
         Intent intent = new Intent(this, EditActivity.class);
-        intent.putExtra(Constants.NOTE_TYPE, note);
+        intent.putExtra(Constants.INTENT_EXTRA_CLASS_NOTE, note);
         startActivity(intent);
     }
 
     @Override
     public void setNotes(List<Note> notes) {
+        mRecyclerAdapter.clearItems();
         mRecyclerAdapter.setItems(notes);
     }
-
-
 }

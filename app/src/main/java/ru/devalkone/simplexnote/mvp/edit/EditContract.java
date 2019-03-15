@@ -1,5 +1,7 @@
 package ru.devalkone.simplexnote.mvp.edit;
 
+import android.widget.EditText;
+
 import ru.devalkone.simplexnote.database.entity.Note;
 
 public interface EditContract {
@@ -20,7 +22,7 @@ public interface EditContract {
 
         void onDestroy();
 
-        void onSaveClicked(Note note);
+        void onSaveClicked(Note note, EditText editText);
 
         void onCancelClicked();
 

@@ -1,5 +1,9 @@
 package ru.devalkone.simplexnote.mvp.edit;
 
+import android.widget.EditText;
+
+import java.util.Calendar;
+
 import ru.devalkone.simplexnote.database.dao.NoteDao;
 import ru.devalkone.simplexnote.database.entity.Note;
 
@@ -33,7 +37,14 @@ public class EditPresenter implements EditContract.Presenter {
     }
 
     @Override
-    public void onSaveClicked(Note note) {
+    public void onSaveClicked(Note note, EditText editText) {
+        note.setText(editText.getText().toString());
+        if (note.getId() == 0) {
+            note.setCreateTime(Calendar.getInstance().getTime().toString());
+            mRepository.insertNote(note);
+        } else {
+            mRepository.updateNote(note);
+        }
 
     }
 

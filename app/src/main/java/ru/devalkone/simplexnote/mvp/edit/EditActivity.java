@@ -24,18 +24,23 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+        init();
     }
 
     private void init() {
-        final Note note = (Note) getIntent().getSerializableExtra(Constants.NOTE_TYPE); //???
-
+        final Note note = (Note) getIntent().getSerializableExtra(Constants.INTENT_EXTRA_CLASS_NOTE); //???
         mEditText = findViewById(R.id.edit_text_main);
         mSaveButton = findViewById(R.id.button_save);
         mCancelButton = findViewById(R.id.button_cancel);
+
+        if (note.getId() != 0) {
+            mEditText.setText(note.getText());
+        }
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.onSaveClicked(note);
+                mPresenter.onSaveClicked(note, mEditText);
+                finish();
             }
         });
         mCancelButton.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,7 @@
 package ru.devalkone.simplexnote.mvp.main;
 
+import java.util.List;
+
 import ru.devalkone.simplexnote.database.dao.NoteDao;
 import ru.devalkone.simplexnote.database.entity.Note;
 
@@ -7,6 +9,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     private MainContract.View mView;
     private final NoteDao mRepository;
+    private List<Note> mNoteList;
 
     MainPresenter(NoteDao mRepository) {
         this.mRepository = mRepository;
@@ -19,7 +22,8 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void viewIsReady() {
-        mView.setNotes(mRepository.getNoteList());
+        mNoteList = mRepository.getNoteList();
+        mView.setNotes(mNoteList);
     }
 
     @Override
@@ -35,6 +39,11 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onFabWasClicked() {
         mView.showEditScreen(new Note());
+    }
+
+    @Override
+    public void onRecyclerItemClicked(Note note) {
+        mView.showEditScreen(note);
     }
 
 }
