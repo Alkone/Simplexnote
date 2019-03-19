@@ -22,6 +22,12 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void viewIsReady() {
+        updateData();
+    }
+
+    @Override
+    public void updateData() {
+        mRepository.getNoteList();
         mNoteList = mRepository.getNoteList();
         mView.setNotes(mNoteList);
     }
@@ -33,7 +39,6 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onDestroy() {
-
     }
 
     @Override
@@ -44,6 +49,12 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onRecyclerItemClicked(Note note) {
         mView.showEditScreen(note);
+    }
+
+    @Override
+    public void onRecyclerItemLongClicked(Note note) {
+        mRepository.removeNote(note);
+        updateData();
     }
 
 }

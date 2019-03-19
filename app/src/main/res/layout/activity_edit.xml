@@ -3,20 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_margin="6dp"
     tools:context=".mvp.edit.EditActivity">
 
     <EditText
         android:id="@+id/edit_text_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:enabled="true"
         android:gravity="bottom"
         android:hint="@string/edit_text_welcome"
+        app:layout_constraintBottom_toTopOf="@+id/button_cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,10 +37,10 @@
         android:id="@+id/button_cancel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:text="@string/button_cancel"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_main"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_main" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_main" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

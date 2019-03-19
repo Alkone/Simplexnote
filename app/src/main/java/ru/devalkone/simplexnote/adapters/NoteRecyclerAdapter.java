@@ -5,27 +5,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.devalkone.simplexnote.R;
 import ru.devalkone.simplexnote.database.entity.Note;
+import ru.devalkone.simplexnote.utils.DateTools;
 
 public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapter.NoteViewHolder> {
     public interface OnNoteClickListener {
-        void onNoteClick(Note note);
+        void onItemClick(Note note);
+
+        void onLongItemClick(Note note);
     }
 
     private OnNoteClickListener mOnNoteClickListener;
     private List<Note> mNoteList = new ArrayList<>();
 
+    //Constructor
     public NoteRecyclerAdapter(OnNoteClickListener mOnNoteClickListener) {
         this.mOnNoteClickListener = mOnNoteClickListener;
     }
@@ -58,9 +58,6 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
     }
 
     class NoteViewHolder extends RecyclerView.ViewHolder {
-        private static final String TWITTER_RESPONSE_FORMAT = "EEE MMM dd HH:mm:ss ZZZZZ yyyy"; // Thu Oct 26 07:31:08 +0000 2017
-        private static final String CREATE_DATE_FORMAT = "dd MMM yyyy HH:mm:ss"; // 26 Oct 2017 07:31:08
-
         private TextView idTextView;
         private TextView dateTextView;
         private TextView textTextView;
@@ -75,7 +72,16 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
                 @Override
                 public void onClick(View v) {
                     Note note = mNoteList.get(getLayoutPosition());
-                    mOnNoteClickListener.onNoteClick(note);
+                    mOnNoteClickListener.onItemClick(note);
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Note note = mNoteList.get(getLayoutPosition());
+                    mOnNoteClickListener.onLongItemClick(note);
+                    return true;
                 }
             });
         }
@@ -84,22 +90,14 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
             idTextView.setText(Long.toString(note.getId()) + "#");
 
             if (note.getCreateTime() != null) {
-                dateTextView.setText(getFormattedDate(note.getCreateTime()));
+                dateTextView.setText(DateTools.getFormattedDate(
+                        "EEE MMM dd HH:mm:ss ZZZZZ yyyy", "dd MMM yyyy HH:mm:ss", note.getCreateTime())); //Thu Oct 26 07:31:08 +0000 2017 to 26 Oct 2017 07:31:08
             }
 
             textTextView.setText(note.getText());
         }
 
         //Изменяет формат даты
-        private String getFormattedDate(String rawDate) {
-            SimpleDateFormat utcFormat = new SimpleDateFormat(TWITTER_RESPONSE_FORMAT, Locale.ROOT);
-            SimpleDateFormat displayedFormat = new SimpleDateFormat(CREATE_DATE_FORMAT, Locale.getDefault());
-            try {
-                Date date = utcFormat.parse(rawDate);
-                return displayedFormat.format(date);
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-        }
+
     }
 }

@@ -19,7 +19,9 @@
         android:layout_gravity="start"
         android:background="#111"
         android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+        android:dividerHeight="0dp">
+
+    </ListView>
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,7 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            app:backgroundTint="@color/design_default_color_on_secondary"
+            app:backgroundTint="@android:color/transparent"
+            app:backgroundTintMode="add"
             app:srcCompat="@android:drawable/ic_menu_add" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

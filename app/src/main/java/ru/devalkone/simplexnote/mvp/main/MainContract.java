@@ -19,6 +19,8 @@ public interface MainContract {
 
         void viewIsReady();
 
+        void updateData();
+
         void detachView();
 
         void onDestroy();
@@ -26,5 +28,7 @@ public interface MainContract {
         void onFabWasClicked();
 
         void onRecyclerItemClicked(Note note);
+
+        void onRecyclerItemLongClicked(Note note);
     }
 }

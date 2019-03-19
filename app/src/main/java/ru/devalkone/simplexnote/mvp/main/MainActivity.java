@@ -48,8 +48,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerAdapter = new NoteRecyclerAdapter(new NoteRecyclerAdapter.OnNoteClickListener() {
             @Override
-            public void onNoteClick(Note note) {
+            public void onItemClick(Note note) {
                 mPresenter.onRecyclerItemClicked(note);
+            }
+
+            @Override
+            public void onLongItemClick(Note note) {
+                mPresenter.onRecyclerItemLongClicked(note);
             }
         });
         mRecyclerView.setAdapter(mRecyclerAdapter);
