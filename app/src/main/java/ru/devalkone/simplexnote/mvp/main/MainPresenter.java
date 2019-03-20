@@ -67,7 +67,6 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onRecyclerItemLongClicked(Note note) {
         mRepository.removeNote(note);
-        updateData();
     }
 
 }
