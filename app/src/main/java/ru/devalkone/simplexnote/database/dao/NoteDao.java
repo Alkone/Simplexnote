@@ -8,13 +8,14 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+import io.reactivex.Flowable;
 import ru.devalkone.simplexnote.database.entity.Note;
 
 @Dao
 public interface NoteDao {
 
     @Query("SELECT * FROM note")
-    List<Note> getNoteList();
+    Flowable<List<Note>> getNoteList();
 
     @Query("SELECT * FROM note WHERE id = :id")
     Note getNoteById(long id);
