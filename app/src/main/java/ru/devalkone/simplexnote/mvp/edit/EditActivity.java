@@ -1,12 +1,12 @@
 package ru.devalkone.simplexnote.mvp.edit;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import butterknife.BindView;
 import ru.devalkone.simplexnote.R;
 import ru.devalkone.simplexnote.database.AppDatabase;
 import ru.devalkone.simplexnote.database.entity.Note;
@@ -15,9 +15,12 @@ import ru.devalkone.simplexnote.utils.Constants;
 public class EditActivity extends AppCompatActivity implements EditContract.View {
 
     private EditContract.Presenter mPresenter;
-    private EditText mEditText;
-    private Button mSaveButton;
-    private Button mCancelButton;
+    @BindView(R.id.edit_text_main)
+    EditText mEditText;
+    @BindView(R.id.button_save)
+    Button mSaveButton;
+    @BindView(R.id.button_cancel)
+    Button mCancelButton;
 
 
     @Override
@@ -29,26 +32,14 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
 
     private void init() {
         final Note note = (Note) getIntent().getSerializableExtra(Constants.INTENT_EXTRA_CLASS_NOTE); //???
-        mEditText = findViewById(R.id.edit_text_main);
-        mSaveButton = findViewById(R.id.button_save);
-        mCancelButton = findViewById(R.id.button_cancel);
-
         if (note.getId() != 0) {
             mEditText.setText(note.getText());
         }
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.onSaveClicked(note, mEditText);
-                finish();
-            }
+        mSaveButton.setOnClickListener(v -> {
+            mPresenter.onSaveClicked(note, mEditText);
+            finish();
         });
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mCancelButton.setOnClickListener(v -> finish());
 
         mPresenter = new EditPresenter(AppDatabase.getDatabaseInstance(getApplicationContext()).noteDao());
         mPresenter.attachView(this);

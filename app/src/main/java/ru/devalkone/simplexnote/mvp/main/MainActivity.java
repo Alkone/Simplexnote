@@ -2,7 +2,6 @@ package ru.devalkone.simplexnote.mvp.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -14,6 +13,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.devalkone.simplexnote.R;
 import ru.devalkone.simplexnote.adapters.NoteRecyclerAdapter;
 import ru.devalkone.simplexnote.database.AppDatabase;
@@ -23,28 +24,24 @@ import ru.devalkone.simplexnote.utils.Constants;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
 
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
+    @BindView(R.id.notes_recyclerview)
+    RecyclerView mRecyclerView;
+
     private MainContract.Presenter mPresenter;
-    private FloatingActionButton mFab;
-    private RecyclerView mRecyclerView;
     private NoteRecyclerAdapter mRecyclerAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         init();
     }
 
     private void init() {
-        mFab = findViewById(R.id.fab);
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.onFabWasClicked();
-            }
-        });
-
-        mRecyclerView = findViewById(R.id.notes_recyclerview);
+        mFab.setOnClickListener(v -> mPresenter.onFabWasClicked());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerAdapter = new NoteRecyclerAdapter(new NoteRecyclerAdapter.OnNoteClickListener() {
             @Override

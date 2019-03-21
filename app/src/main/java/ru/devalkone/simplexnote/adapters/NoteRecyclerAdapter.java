@@ -11,6 +11,8 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.devalkone.simplexnote.R;
 import ru.devalkone.simplexnote.database.entity.Note;
 import ru.devalkone.simplexnote.utils.DateTools;
@@ -58,31 +60,26 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
     }
 
     class NoteViewHolder extends RecyclerView.ViewHolder {
-        private TextView idTextView;
-        private TextView dateTextView;
-        private TextView textTextView;
+        @BindView(R.id.note_item_id)
+        TextView idTextView;
+        @BindView(R.id.note_item_date)
+        TextView dateTextView;
+        @BindView(R.id.note_item_text)
+        TextView textTextView;
 
-        public NoteViewHolder(View itemView) {
-            super(itemView);
-            idTextView = itemView.findViewById(R.id.note_item_id);
-            dateTextView = itemView.findViewById(R.id.note_item_date);
-            textTextView = itemView.findViewById(R.id.note_item_text);
+        public NoteViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Note note = mNoteList.get(getLayoutPosition());
-                    mOnNoteClickListener.onItemClick(note);
-                }
+            view.setOnClickListener(v -> {
+                Note note = mNoteList.get(getLayoutPosition());
+                mOnNoteClickListener.onItemClick(note);
             });
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    Note note = mNoteList.get(getLayoutPosition());
-                    mOnNoteClickListener.onLongItemClick(note);
-                    return true;
-                }
+            view.setOnLongClickListener(v -> {
+                Note note = mNoteList.get(getLayoutPosition());
+                mOnNoteClickListener.onLongItemClick(note);
+                return true;
             });
         }
 

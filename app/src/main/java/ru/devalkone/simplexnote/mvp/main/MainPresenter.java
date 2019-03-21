@@ -2,11 +2,8 @@ package ru.devalkone.simplexnote.mvp.main;
 
 import android.annotation.SuppressLint;
 
-import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import ru.devalkone.simplexnote.database.dao.NoteDao;
 import ru.devalkone.simplexnote.database.entity.Note;
 
@@ -31,11 +28,8 @@ public class MainPresenter implements MainContract.Presenter {
     public void viewIsReady() {
         mDaoSubscribe = mRepository.getNoteList()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Note>>() {
-                    @Override
-                    public void accept(List<Note> notes) throws Exception {
-                        mView.setNotes(notes);
-                    }
+                .subscribe(notes -> { //добавить catch
+                    mView.setNotes(notes);
                 });
     }
 
